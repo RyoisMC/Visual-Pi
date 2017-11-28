@@ -1,0 +1,88 @@
+<html>
+    <title>Visual Pi</title>
+    <head>
+        <style>
+            canvas {
+                padding: 0;
+                margin: auto;
+                display: block;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                }
+        </style>
+    </head>
+
+    <body>
+
+        <canvas id="canvas"></canvas>
+        <script>
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min + 1) ) + min;
+        }
+        // default width and height of canvas 300x150 1200x600
+        var canvas = document.getElementById('canvas');
+        var ctx = canvas.getContext('2d');      
+        ctx.fillStyle = "blue";
+        canvas.width = 600;
+        canvas.height = 600;;
+        inside = 0;
+        outside = 0;
+        ctx.fillRect(0, 0, canvas.height, canvas.height);
+        //(x**2)+(y**2)<+(r**2)
+
+
+        
+        ctx.translate(300,300);
+
+
+
+// fix this so that it uses percents instead of px
+        function drawAxis() {
+            ctx.beginPath();
+            ctx.strokeStyle = 'blue';
+            ctx.moveTo(300,0);
+            ctx.lineTo(300,600);
+            ctx.moveTo(0,300);
+            ctx.lineTo(900,300);
+            ctx.stroke();
+        }
+
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'blue';
+        ctx.arc(0, 0, 300,0,2*Math.PI, true);
+        ctx.stroke();
+
+
+
+        for (i=0;i<100000;i++){
+            x = getRndInteger(-300,300)
+            y = getRndInteger(-300,300)
+
+            ctx.beginPath();
+            ctx.arc(x,y, 3,0,2*Math.PI, true);
+            ctx.stroke();
+
+            if ((x**2)+(y**2)<((300**2)-2600)){
+                inside++;
+            }
+            else{
+                outside++;
+            }
+        }
+
+        console.log(inside);
+        console.log(outside);
+        console.log(inside/outside);
+
+
+       
+        </script>
+
+
+    </body>
+</html>
